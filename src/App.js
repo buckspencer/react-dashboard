@@ -34,17 +34,23 @@ const App = () => {
     currentMode,
     activeMenu,
     currentColor,
+    themeSettings,
+    setThemeSettings,
   } = useStateContext();
   return (
-    <div>
+    <div className={currentMode === "Dark" ? "dark" : ""}>
       <BrowserRouter>
         <div className="flex relative dark:bg-main-dark-bg">
           <div className="fixed right-4 bottom-4" style={{ zIndex: "1000" }}>
-            <TooltipComponent content="Settings" position="Top">
+            <TooltipComponent
+              content="Settings"
+              position="Top"
+              onClick={() => setThemeSettings(true)}
+            >
               <button
                 type="button"
                 className="text-3xl p-3 hover:drop-shadow-xl hover:bg-light-gray text-white"
-                style={{ backgroundColor: "blue", borderRadius: "50%" }}
+                style={{ backgroundColor: currentColor, borderRadius: "50%" }}
               >
                 <FiSettings />
               </button>
@@ -70,6 +76,7 @@ const App = () => {
               <Navbar />
             </div>
             <div>
+              {themeSettings && <ThemeSettings />}
               <Routes>
                 {/* Dashboard */}
                 <Route path="/" element={<Ecommerce />} />
